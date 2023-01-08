@@ -17,18 +17,18 @@ The approximate resolution error without seconds from DMS source is `max_error_r
 Tentative JSON api return structure.
 ```
 {
-	"moon":
-		[
-			{
-				"id":        Int()
-				"date":      Date("yyyy-mm-dd"),
-				"time":      Time("hhmm"),
-				"latitude":  Float(Decimal Degree),
-				"longitude": Float(Decimal Degree),
-				"distance":  Float(Kilometers)
-			},
-		],
-	"sun": ...
+    "moon":
+        [
+ 	    {
+	 	"id":        Int()
+		"date":      Date("yyyy-mm-dd"),
+		"time":      Time("hhmm"),
+		"latitude":  Float(Decimal Degree),
+		"longitude": Float(Decimal Degree),
+		"distance":  Float(Kilometers)
+	    },
+	],
+    "sun": ...
 }
 ```
 
