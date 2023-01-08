@@ -15,7 +15,7 @@ decimal degrees = degrees + (minutes / 60) + (seconds / 3600)
 The approximate resolution error without seconds from DMS source is `max_error_radius = 1.847088 km`
 
 Tentative JSON api return structure.
-'''
+```
 {
 	"moon":
 		[
@@ -30,7 +30,7 @@ Tentative JSON api return structure.
 		],
 	"sun": ...
 }
-'''
+```
 
 Tentative SQL DB structure.
 | id | date (yyyy-mm-dd) | time (24 hour) | body | latitude (DD) | longitude (DD) | distance (km) |
