@@ -34,6 +34,7 @@ A project to create an api around a real time ground track of the sun and moon. 
 }
 ```
 * Tentative SQL DB structure.
+
 | id | date (yyyy-mm-dd) | time (24 hour) | body | latitude (DD) | longitude (DD) | distance (km) |
 |---|---|---|---|---|---|---|
 | 123 | 2023-01-10 | 1520 | moon | -72.0234 | 25.3267 | 384,400 |
