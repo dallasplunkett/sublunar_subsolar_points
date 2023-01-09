@@ -1,9 +1,11 @@
 ### scraper
-
-[] link to database (12 Jan)
+- [ ] link to database
 
 ### database
+- [ ] create aws rds db
 
 ### api
+- [ ] create api
 
 ### tidal prediction
+- [ ] create model for predicting tidal heights
