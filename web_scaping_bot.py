@@ -15,35 +15,6 @@ import json
 import time
 
 
-def run_bot():
-    
-    URL = 'https://www.timeanddate.com/worldclock/sunearth.html'
-    SCRAPE_INTERVAL = 600 # 600 seconds or 10 minutes
-    
-    while True:
-
-        page = requests.get(URL).text
-        
-        solar_line = get_line(page, 'solar')
-        lunar_line = get_line(page, 'lunar')
-        
-        solar_datetime = get_datetime(solar_line)
-        lunar_datetime = get_datetime(lunar_line)
-        
-        solar_coord = get_coord(solar_line)
-        lunar_coord = get_coord(lunar_line)
-        
-        data = make_json(solar_datetime, solar_coord, lunar_datetime, lunar_coord)
-        
-        # TODO: send data to database
-        print(data)
-        
-        time.sleep(SCRAPE_INTERVAL)
-        
-
-run_bot()
-
-
 def get_line(text, option):
     
     solar = 'Position of the Sun: Subsolar Point'
@@ -109,3 +80,32 @@ def make_json(solar_datetime, solar_coord, lunar_datetime, lunar_coord):
     }
     
     return json.dumps(data)
+
+
+def run_bot():
+    
+    URL = 'https://www.timeanddate.com/worldclock/sunearth.html'
+    SCRAPE_INTERVAL = 600 # 600 seconds or 10 minutes
+    
+    while True:
+
+        page = requests.get(URL).text
+        
+        solar_line = get_line(page, 'solar')
+        lunar_line = get_line(page, 'lunar')
+        
+        solar_datetime = get_datetime(solar_line)
+        lunar_datetime = get_datetime(lunar_line)
+        
+        solar_coord = get_coord(solar_line)
+        lunar_coord = get_coord(lunar_line)
+        
+        data = make_json(solar_datetime, solar_coord, lunar_datetime, lunar_coord)
+        
+        # TODO: send data to database
+        print(data)
+        
+        time.sleep(SCRAPE_INTERVAL)
+        
+
+run_bot()
