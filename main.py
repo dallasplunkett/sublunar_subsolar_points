@@ -1,9 +1,7 @@
-#!/usr/bin/env python3
+ #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Jan  8 11:38:42 2023
 
-@author: dallasplunkett
-"""
-
-print('hello world')
+def main():
+    pass
+    # bot = Scraper()
+    # bot.run()
