@@ -1,12 +1,11 @@
 ### scraper
+- [ ] refactor design (maybe oop approach)
 - [ ] link to database
-- [ ] refactor design of the scrapper (not sure yet if i want to make it oop)
+- [ ] feeding mechanism from scraper to database
 
 ### database
-- [ ] create aws rds db
-
-### api
-- [ ] create a fastapi for local host setup 
+- [X] create aws rds db
+- [ ] redo db and table creation / setup. (currently has mock data)
 
 ### tidal prediction
 - [ ] create model for predicting tidal heights
