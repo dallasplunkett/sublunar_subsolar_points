@@ -56,20 +56,20 @@ def get_coord(text):
 
 def make_json(solar_datetime, solar_coord, lunar_datetime, lunar_coord):
     
-    data = {
-        "sun": {
+    data = [{
+            "body": "sun",
             "date": solar_datetime[0],
             "time": solar_datetime[1],
             "latitude": solar_coord[0],
             "longitude": solar_coord[1],
-        },
-        "moon": {
+        }, {
+            "body": "sun",
             "date": lunar_datetime[0],
             "time": lunar_datetime[1],
             "latitude": lunar_coord[0],
             "longitude": lunar_coord[1],
         }
-    }
+    ]
     
     return json.dumps(data)
 
