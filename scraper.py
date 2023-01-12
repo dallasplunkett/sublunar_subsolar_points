@@ -5,25 +5,25 @@ import requests
 import datetime
 import json
 import time
+import mysql.connector
+from settings import URL, HOST, ADMIN_USER, PASSWORD, DATABASE
 
 
-def get_line(text, option):
+def get_line(text, choice):
     
     solar = 'Position of the Sun: Subsolar Point'
     lunar = 'Position of the Moon: Sublunar Point'
-    choice = solar if option == 'solar' else lunar
+    choice = solar if choice == 'solar' else lunar
     
     start_index = text.find(choice) + len(choice) + 5
     end_index = text.find('</p>', start_index)
     temp = text[start_index:end_index]
     
-    remove_these = [
-        '<p>', '<tr>', '</tr>', '<td class=r>', '</td>', '<td>', '&nbsp;'
-    ]
+    remove_these = ['<p>', '<tr>', '</tr>', '<td class=r>', '</td>', '<td>', '&nbsp;']
     
     for elem in remove_these:
         temp = temp.replace(elem, '')
-    
+
     return temp.lower()
 
 
@@ -61,23 +61,26 @@ def make_json(solar_datetime, solar_coord, lunar_datetime, lunar_coord):
             "date": solar_datetime[0],
             "time": solar_datetime[1],
             "latitude": solar_coord[0],
-            "longitude": solar_coord[1],
+            "longitude": solar_coord[1]
         }, {
-            "body": "sun",
+            "body": "moon",
             "date": lunar_datetime[0],
             "time": lunar_datetime[1],
             "latitude": lunar_coord[0],
-            "longitude": lunar_coord[1],
+            "longitude": lunar_coord[1]
         }
     ]
     
-    return json.dumps(data)
+    return data
 
 
 def run_bot():
     
-    URL = 'https://www.timeanddate.com/worldclock/sunearth.html'
-    SCRAPE_INTERVAL = 600 # 600 seconds or 10 minutes
+    SCRAPE_INTERVAL = 300 # 600 seconds or 10 minutes
+
+    db = mysql.connector.connect(host=HOST, user=ADMIN_USER, passwd=PASSWORD, database=DATABASE)
+
+    cursor = db.cursor()
     
     while True:
 
@@ -92,12 +95,18 @@ def run_bot():
         solar_coord = get_coord(solar_line)
         lunar_coord = get_coord(lunar_line)
         
-        data = make_json(solar_datetime, solar_coord, lunar_datetime, lunar_coord)
-        
-        # TODO: send data to database
-        print(data)
-        
+        tracks = make_json(solar_datetime, solar_coord, lunar_datetime, lunar_coord)
+
+        for track in tracks:
+            command = (
+                f"insert into tracks(date,time,body,latitude,longitude)\n"
+                f"values('{track['date']}','{track['time']}','{track['body']}',{track['latitude']},{track['longitude']});"
+            )
+            cursor.execute(command)
+            db.commit()
+            print(f"Sent: ('{track['date']}','{track['time']}','{track['body']}',{track['latitude']},{track['longitude']})")
+
         time.sleep(SCRAPE_INTERVAL)
-        
+
 
 run_bot()
